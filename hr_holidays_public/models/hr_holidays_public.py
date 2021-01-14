@@ -34,7 +34,6 @@ class HrHolidaysPublic(models.Model):
         'Country'
     )
 
-    @api.multi
     @api.constrains('year', 'country_id')
     def _check_year(self):
         for line in self:
@@ -51,7 +50,6 @@ class HrHolidaysPublic(models.Model):
             ))
         return True
 
-    @api.multi
     @api.depends('year', 'country_id')
     def _compute_display_name(self):
         for line in self:
@@ -63,7 +61,6 @@ class HrHolidaysPublic(models.Model):
             else:
                 line.display_name = line.year
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:
@@ -161,7 +158,6 @@ class HrHolidaysPublicLine(models.Model):
 
     meeting_id = fields.Many2one('calendar.event', string='Meeting')
 
-    @api.multi
     @api.constrains('date', 'state_ids')
     def _check_date_state(self):
         for line in self:
@@ -199,7 +195,6 @@ class HrHolidaysPublicLine(models.Model):
             ) % self.date)
         return True
 
-    @api.multi
     def _prepare_holidays_meeting_values(self):
         self.ensure_one()
         categ_id = self.env.ref('hr_holidays_public.event_type_holiday', False)
@@ -235,7 +230,6 @@ class HrHolidaysPublicLine(models.Model):
             res._prepare_holidays_meeting_values())
         return res
 
-    @api.multi
     def unlink(self):
         self.mapped('meeting_id').unlink(can_be_deleted=True)
         return super().unlink()

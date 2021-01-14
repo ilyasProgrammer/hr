@@ -56,7 +56,7 @@ class ResourceCalendar(models.Model):
                 )
         return Intervals(leaves)
 
-    def _leave_intervals(self, start_dt, end_dt, resource=None, domain=None):
+    def _leave_intervals(self, start_dt, end_dt, resource=None, domain=None, tz=None):
         res = super()._leave_intervals(
             start_dt=start_dt,
             end_dt=end_dt,

@@ -76,7 +76,6 @@ class HolidaysPublicNextYearWizard(models.TransientModel):
             ], limit=1)
             record.warning_existing = len(existing) > 0
 
-    @api.multi
     def create_public_holidays(self):
         self.ensure_one()
         # Handling this rare case would mean quite a lot of
@@ -129,7 +128,6 @@ class HolidaysPublicNextYearWizard(models.TransientModel):
 
 
 class PublicHolidaysLineTransient(models.TransientModel):
-
     _name = 'hr.holidays.public.line.transient'
     _description = 'Wizard Public Holiday Lines'
     _order = 'date'
